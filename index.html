@@ -123,14 +123,23 @@
     transform: translateY(-4px);
     box-shadow: 0 10px 20px rgba(168,50,70,0.15);
   }
+.product-img-wrap{
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: #f3e6da;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-  .product-img-wrap{
-    position: relative;
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    overflow: hidden;
-    background: #f3e6da;
-  }
+.product-img-wrap img{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
   .product-img-wrap img{
     width: 100%;
     height: 100%;
