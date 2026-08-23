@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gulabdas kids Wear</title>
+
+<!-- Bootstrap 5 CDN -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap Icons (for WhatsApp icon) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+<!-- Google Font for a soft ethnic feel -->
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --brand-maroon:#a83246;
+    --brand-mustard:#e0a638;
+    --brand-cream:#fdf6ee;
+    --brand-green:#4c7a52;
+    --brand-text:#3a2b2b;
+    --whatsapp:#25D366;
+  }
+
+  * { box-sizing:border-box; }
+
+  body{
+    background-color: var(--brand-cream);
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(168,50,70,0.08) 1px, transparent 0);
+    background-size: 22px 22px;
+    color: var(--brand-text);
+    font-family: 'Poppins', sans-serif;
+    padding-bottom: 40px;
+  }
+
+  h1, h2, .brand-font{
+    font-family: 'Baloo 2', cursive;
+  }
+
+  /* Header */
+  .site-header{
+    background: linear-gradient(135deg, var(--brand-maroon), #c14a5f);
+    color: #fff;
+    padding: 28px 16px 34px;
+    text-align: center;
+    border-bottom: 6px solid var(--brand-mustard);
+    position: relative;
+    overflow: hidden;
+  }
+  .site-header::before,
+  .site-header::after{
+    content:"";
+    position:absolute;
+    width:140px;
+    height:140px;
+    border:3px solid rgba(255,255,255,0.15);
+    border-radius:50%;
+    top:-60px;
+  }
+  .site-header::before{ left:-40px; }
+  .site-header::after{ right:-40px; top:-70px; }
+
+  .site-header h1{
+    font-size: 1.9rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+    letter-spacing: .5px;
+  }
+  .site-header p{
+    font-size: 0.95rem;
+    margin-bottom: 0;
+    opacity: 0.95;
+  }
+
+  /* Category filter pills */
+  .filter-bar{
+    display:flex;
+    gap:8px;
+    overflow-x:auto;
+    padding: 14px 12px 4px;
+    scrollbar-width: none;
+  }
+  .filter-bar::-webkit-scrollbar{ display:none; }
+  .filter-pill{
+    flex: 0 0 auto;
+    border: 1.5px solid var(--brand-maroon);
+    color: var(--brand-maroon);
+    background:#fff;
+    padding: 6px 16px;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all .2s ease;
+    white-space: nowrap;
+  }
+  .filter-pill.active,
+  .filter-pill:hover{
+    background: var(--brand-maroon);
+    color: #fff;
+  }
+
+  /* Product grid */
+  .catalogue-wrap{
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 10px 12px 0;
+  }
+
+  .product-card{
+    background:#fff;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid rgba(168,50,70,0.12);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+    transition: transform .18s ease, box-shadow .18s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .product-card:hover{
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(168,50,70,0.15);
+  }
+
+  .product-img-wrap{
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: #f3e6da;
+  }
+  .product-img-wrap img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display:block;
+    transition: transform .3s ease;
+  }
+  .product-card:hover .product-img-wrap img{
+    transform: scale(1.06);
+  }
+
+  .badge-new{
+    position:absolute;
+    top:8px;
+    left:8px;
+    background: var(--brand-mustard);
+    color:#3a2b2b;
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: 20px;
+    letter-spacing: .3px;
+    z-index: 2;
+  }
+
+  .product-body{
+    padding: 10px 12px 12px;
+    display:flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .product-name{
+    font-size: 0.88rem;
+    font-weight: 600;
+    line-height: 1.25;
+    margin-bottom: 4px;
+    min-height: 2.2em;
+    color: var(--brand-text);
+  }
+
+  .product-meta{
+    font-size: 0.72rem;
+    color: #8a7268;
+    margin-bottom: 6px;
+  }
+
+  .product-price{
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--brand-maroon);
+    margin-bottom: 10px;
+  }
+  .product-price .mrp{
+    font-size: 0.75rem;
+    color: #a89a90;
+    text-decoration: line-through;
+    font-weight: 400;
+    margin-left: 6px;
+  }
+
+  .btn-whatsapp{
+    background-color: var(--whatsapp);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 10px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-top: auto;
+    transition: background-color .15s ease;
+    text-decoration: none;
+  }
+  .btn-whatsapp:hover{
+    background-color: #1ebc59;
+    color:#fff;
+  }
+  .btn-whatsapp i{ font-size: 1rem; }
+
+  /* Section divider */
+  .section-title{
+    text-align:center;
+    margin: 22px 0 6px;
+  }
+  .section-title h2{
+    font-size: 1.3rem;
+    color: var(--brand-maroon);
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .section-title .divider{
+    width: 60px;
+    height: 3px;
+    background: var(--brand-mustard);
+    margin: 6px auto 0;
+    border-radius: 3px;
+  }
+
+  /* Footer / floating WhatsApp */
+  .floating-whatsapp{
+    position: fixed;
+    bottom: 18px;
+    right: 18px;
+    background: var(--whatsapp);
+    color:#fff;
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size: 1.6rem;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+    z-index: 999;
+    text-decoration: none;
+    animation: pulse 2.2s infinite;
+  }
+  @keyframes pulse{
+    0%{ box-shadow: 0 0 0 0 rgba(37,211,102,0.5); }
+    70%{ box-shadow: 0 0 0 12px rgba(37,211,102,0); }
+    100%{ box-shadow: 0 0 0 0 rgba(37,211,102,0); }
+  }
+
+  .site-footer{
+    text-align:center;
+    margin-top: 36px;
+    padding: 18px 12px;
+    font-size: 0.8rem;
+    color: #8a7268;
+  }
+  .site-footer strong{ color: var(--brand-maroon); }
+
+  @media (min-width: 768px){
+    .site-header h1{ font-size: 2.4rem; }
+    .site-header p{ font-size: 1.05rem; }
+    .product-name{ font-size: 0.95rem; }
+    .product-price{ font-size: 1.1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="site-header">
+  <h1 class="brand-font">🌼 Gulabdas kids Wear</h1>
+  <p>Handpicked ethnic outfits for your little ones · Ask &amp; order on WhatsApp</p>
+</header>
+
+<!-- Category filters -->
+<div class="filter-bar" id="filterBar">
+  <button class="filter-pill active" data-filter="all">All</button>
+  <button class="filter-pill" data-filter="boys">Boys</button>
+  <button class="filter-pill" data-filter="girls">Girls</button>
+  <button class="filter-pill" data-filter="festive">Festive</button>
+  <button class="filter-pill" data-filter="daily">Daily Wear</button>
+</div>
+
+<div class="catalogue-wrap">
+  <div class="section-title">
+    <h2>Our Catalogue</h2>
+    <div class="divider"></div>
+  </div>
+
+  <div class="row g-2 g-md-3" id="productGrid">
+    <!-- Products injected by JS -->
+  </div>
+</div>
+
+<!-- Floating WhatsApp button -->
+<a href="#" id="floatWhatsapp" class="floating-whatsapp" target="_blank" aria-label="Chat on WhatsApp">
+  <i class="bi bi-whatsapp"></i>
+</a>
+
+<footer class="site-footer">
+  <p class="mb-1">📍 Made with love for little tradition-keepers</p>
+  <p class="mb-0"><strong>Gulabdas kids Wear</strong> · Tap any product to inquire instantly on WhatsApp</p>
+</footer>
+
+<script>
+  // ====== CONFIG ======
+  const WHATSAPP_NUMBER = "919999999999"; // Replace with seller's WhatsApp number (country code + number, no + or spaces)
+
+  // ====== PRODUCT DATA ======
+  // Replace image URLs with your own product photos.
+  const products = [
+    {
+      name: "Boys Kurta Pajama Set – Golden Zari",
+      category: "boys festive",
+      price: 799,
+      mrp: 999,
+      img: "https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=500&q=80",
+      isNew: true
+    },
+    {
+      name: "Girls Lehenga Choli – Peacock Blue",
+      category: "girls festive",
+      price: 1199,
+      mrp: 1499,
+      img: "https://images.unsplash.com/photo-1596464716127-f2a82984de30?w=500&q=80",
+      isNew: true
+    },
+    {
+      name: "Boys Nehru Jacket Set – Maroon",
+      category: "boys festive",
+      price: 899,
+      mrp: null,
+      img: "https://images.unsplash.com/photo-1622290291468-a28f7a7dc6a8?w=500&q=80",
+      isNew: false
+    },
+    {
+      name: "Girls Anarkali Suit – Pastel Pink",
+      category: "girls daily",
+      price: 649,
+      mrp: 799,
+      img: "https://images.unsplash.com/photo-1519457851617-2891b5f2d6df?w=500&q=80",
+      isNew: false
+    },
+    {
+      name: "Boys Dhoti Kurta – Cream & Gold",
+      category: "boys festive",
+      price: 749,
+      mrp: null,
+      img: "https://images.unsplash.com/photo-1600180758890-6b94519a8ba6?w=500&q=80",
+      isNew: false
+    },
+    {
+      name: "Girls Cotton Ethnic Frock – Yellow Print",
+      category: "girls daily",
+      price: 449,
+      mrp: 549,
+      img: "https://images.unsplash.com/photo-1503944168849-8547e8c1c58f?w=500&q=80",
+      isNew: false
+    },
+    {
+      name: "Boys Ethnic Waistcoat Set – Navy",
+      category: "boys daily",
+      price: 699,
+      mrp: null,
+      img: "https://images.unsplash.com/photo-1618375531912-867984bdfd87?w=500&q=80",
+      isNew: false
+    },
+    {
+      name: "Girls Sharara Set – Rani Pink",
+      category: "girls festive",
+      price: 1099,
+      mrp: 1299,
+      img: "https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?w=500&q=80",
+      isNew: true
+    },
+    {
+      name: "Boys Cotton Kurta – Sky Blue",
+      category: "boys daily",
+      price: 499,
+      mrp: null,
+      img: "https://images.unsplash.com/photo-1592878904946-b3cd8ae243d0?w=500&q=80",
+      isNew: false
+    }
+  ];
+
+  // ====== RENDER PRODUCTS ======
+  const grid = document.getElementById('productGrid');
+
+  function formatWhatsappLink(productName, price){
+    const message = `Hi! I'm interested in "${productName}" (₹${price}). Is it available?`;
+    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+  }
+
+  function renderProducts(filter = 'all'){
+    grid.innerHTML = '';
+    const filtered = filter === 'all'
+      ? products
+      : products.filter(p => p.category.includes(filter));
+
+    if(filtered.length === 0){
+      grid.innerHTML = `<div class="col-12 text-center py-5 text-muted">No products in this category yet.</div>`;
+      return;
+    }
+
+    filtered.forEach(p => {
+      const col = document.createElement('div');
+      col.className = 'col-6 col-md-4 col-lg-4';
+
+      col.innerHTML = `
+        <div class="product-card">
+          <div class="product-img-wrap">
+            ${p.isNew ? '<span class="badge-new">NEW</span>' : ''}
+            <img src="${p.img}" alt="${p.name}" loading="lazy">
+          </div>
+          <div class="product-body">
+            <div class="product-name">${p.name}</div>
+            <div class="product-price">
+              ₹${p.price}
+              ${p.mrp ? `<span class="mrp">₹${p.mrp}</span>` : ''}
+            </div>
+            <a class="btn-whatsapp" href="${formatWhatsappLink(p.name, p.price)}" target="_blank" rel="noopener">
+              <i class="bi bi-whatsapp"></i> Ask on WhatsApp
+            </a>
+          </div>
+        </div>
+      `;
+      grid.appendChild(col);
+    });
+  }
+
+  renderProducts();
+
+  // ====== FILTER HANDLING ======
+  document.getElementById('filterBar').addEventListener('click', (e) => {
+    if(!e.target.classList.contains('filter-pill')) return;
+    document.querySelectorAll('.filter-pill').forEach(btn => btn.classList.remove('active'));
+    e.target.classList.add('active');
+    renderProducts(e.target.dataset.filter);
+  });
+
+  // ====== FLOATING WHATSAPP BUTTON ======
+  document.getElementById('floatWhatsapp').href =
+    `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hi! I saw your ethnic kidswear catalogue and wanted to ask about a few items.')}`;
+</script>
+
+<!-- Bootstrap JS (only needed if you add navbars/modals later) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
